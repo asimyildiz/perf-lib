@@ -1,0 +1,15 @@
+{
+  "extends": "strongloop",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"    
+  },
+  "rules": {
+    "semi": "error"
+  },
+  "ignorePatterns": ["**/lib/*.js", "**/__tests__/*.js", "**/__mocks__/*.js", "**/docs/**/*.js"]
+}

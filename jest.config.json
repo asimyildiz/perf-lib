@@ -1,0 +1,21 @@
+{
+  "collectCoverage": true,
+  "moduleFileExtensions": [
+    "js"
+  ],
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "moduleNameMapper": {
+    "web-vitals/base": "<rootDir>/__mocks__/web-vitals/base"
+  },
+  "testEnvironment": "jsdom",
+  "testRegex": "((\\.|/*.)(spec))\\.js?$",
+  "setupFiles": [
+    "./__mocks__/client.js",
+    "./__mocks__/helpers.js",
+    "./__mocks__/web-vitals/base.js",
+    "./__mocks__/xmlhttp.js",
+    "./__mocks__/sendbeacon.js"
+  ]
+}
