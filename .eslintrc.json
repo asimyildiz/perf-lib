@@ -1,5 +1,6 @@
 {
-  "extends": "strongloop",
+  "extends": ["strongloop", "prettier"],
+  "plugins": ["prettier"],
   "env": {
     "browser": true,
     "node": true
@@ -8,8 +9,13 @@
     "ecmaVersion": 2020,
     "sourceType": "module"    
   },
-  "rules": {
-    "semi": "error"
+  "rules": {    
+    "prettier/prettier": [      
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
   "ignorePatterns": ["**/lib/*.js", "**/__tests__/*.js", "**/__mocks__/*.js", "**/docs/**/*.js"]
 }

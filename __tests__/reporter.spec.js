@@ -1,4 +1,4 @@
-import {reporter} from '../src/reporter';
+import { reporter } from '../src/reporter';
 import ReportFactory from '../src/reporter/ReportFactory';
 import BeaconReporter from '../src/reporter/BeaconReporter';
 import IdleReporter from '../src/reporter/IdleReporter';
@@ -19,7 +19,7 @@ describe('reporter function', () => {
 
     const beaconReporter = ReportFactory.createReporter(
       'beacon',
-      'http://test',
+      'http://test'
     );
     expect(beaconReporter).toBeInstanceOf(BeaconReporter);
   });

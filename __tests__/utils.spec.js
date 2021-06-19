@@ -7,7 +7,7 @@ describe('utils function', () => {
     jest
       .spyOn(global.Date, 'now')
       .mockImplementationOnce(() =>
-        new Date('2021-06-14T11:03:28.135Z').valueOf(),
+        new Date('2021-06-14T11:03:28.135Z').valueOf()
       );
 
     jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0.5);
@@ -15,60 +15,82 @@ describe('utils function', () => {
     expect(Util.generateUniqueId()).toBe('v1-1623668608135-5499999999999');
   });
 
-  it('It should round numbers correctly with precision', () => {
-    expect(Util.round(3.49, 0)).toBe(3);
-    expect(Util.round(3.49, 1)).toBe(3.5);
-    expect(Util.round(3.4913, 2)).toBe(3.49);
-  });
-
   it('should calculate metrics correctly', () => {
     const metrics = [
       {
         name: 'TTFB',
         value: 1.2,
-        result: {
-          TTFB: 1,
-        },
+        delta: 1.2,
       },
       {
         name: 'FCP',
         value: 2.3,
-        result: {
-          FCP: 2,
-        },
+        delta: 2.3,
       },
       {
-        name: 'LCP',
+        name: 'https://css',
         value: 4.5,
-        result: {
-          LCP: 5,
+      },
+    ];
+
+    const results = [
+      {
+        TTFB: {
+          name: 'TTFB',
+          value: 1.2,
+          delta: 1.2,
         },
       },
       {
-        name: 'FID',
-        value: 6.7,
-        result: {
-          FID: 7,
+        FCP: {
+          name: 'FCP',
+          value: 2.3,
+          delta: 2.3,
         },
       },
       {
-        name: 'CLS',
-        value: 8.9,
-        result: {
-          CLS: 8.9,
-        },
-      },
-      {
-        name: 'NON',
-        value: 9.2,
-        result: {
-          NON: 9.2,
+        'https://css': {
+          name: 'https://css',
+          value: 4.5,
         },
       },
     ];
 
-    metrics.forEach((item) => {
-      expect(Util.mapMetric(item)).toStrictEqual(item.result);
+    metrics.forEach((item, index) => {
+      expect(Util.mapMetric(item)).toStrictEqual(results[index]);
     });
+  });
+
+  it('should get device info correctly', () => {
+    const deviceInfo = Util.getDeviceInfo();
+    expect(Object.keys(deviceInfo)).toStrictEqual([
+      'url',
+      'referrer',
+      'userAgent',
+      'memory',
+      'cpus',
+      'connection',
+    ]);
+  });
+
+  it('should get device info/connection correctly when empty', () => {
+    mockNavigatorPerformance();
+    const deviceInfo = Util.getDeviceInfo();
+    expect(deviceInfo.connection).toBe(undefined);
+  });
+
+  it('should get device info/connection correctly when set', () => {
+    mockNavigatorPerformance({
+      effectiveType: '',
+      rtt: '',
+      downlink: '',
+    });
+
+    const deviceInfo = Util.getDeviceInfo();
+    expect(Object.keys(deviceInfo.connection)).toStrictEqual([
+      'effectiveType',
+      'rtt',
+      'downlink',
+    ]);
   });
 });

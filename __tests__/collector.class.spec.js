@@ -5,37 +5,56 @@ import SingleCollector from '../src/collector/SingleCollector';
 
 describe('collector classes', () => {
   it('It should have call reportData immediately on SingleCollector, idle', () => {
-    const reportCollector = {report: jest.fn()};
+    const reportCollector = { report: jest.fn() };
     const singleCollector = CollectFactory.createCollector(
       'idle',
-      '',
-      reportCollector,
+      { id: 1, init: { url: 'https://www' } },
+      reportCollector
     );
     expect(singleCollector).toBeInstanceOf(SingleCollector);
     const spy = jest.spyOn(singleCollector, 'reportData');
     singleCollector.handleData({
       name: 'TTFB',
       value: 1.2,
+      delta: 1.2,
     });
     expect(spy).toHaveBeenCalled();
     expect(reportCollector.report).toHaveBeenCalled();
   });
 
   it('It should group metrics together on GroupCollector, beacon', () => {
-    const groupCollector = CollectFactory.createCollector('beacon', '1');
+    const groupCollector = CollectFactory.createCollector('beacon', {
+      id: 1,
+      init: { url: 'https://www' },
+    });
     expect(groupCollector).toBeInstanceOf(GroupCollector);
     groupCollector.handleData({
       name: 'TTFB',
       value: 1.2,
+      delta: 1.2,
     });
     groupCollector.handleData({
       name: 'FCP',
       value: 2.3,
+      delta: 2.3,
     });
-    expect(groupCollector.result).toStrictEqual({
-      id: '1',
-      data: {TTFB: 1, FCP: 2},
-    });
+    expect(groupCollector.result).toStrictEqual([
+      { id: 1, init: { url: 'https://www' } },
+      {
+        TTFB: {
+          name: 'TTFB',
+          value: 1.2,
+          delta: 1.2,
+        },
+      },
+      {
+        FCP: {
+          name: 'FCP',
+          value: 2.3,
+          delta: 2.3,
+        },
+      },
+    ]);
   });
 
   it('It should throw an error when handleData is called, if Collector class is instantiated directly', () => {
@@ -54,6 +73,6 @@ describe('collector classes', () => {
     collector.handleData = jest.fn();
     collector.collect();
 
-    expect(collector.handleData).toHaveBeenCalledTimes(5);
+    expect(collector.handleData).toHaveBeenCalledTimes(8);
   });
 });

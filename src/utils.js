@@ -8,29 +8,33 @@ export const generateUniqueId = () => {
 };
 
 /**
- * round number with precision
- * @param {Number} value - number to be rounded
- * @param {Number} precision - precision
- * @returns {Number}
- */
-export const round = (value, precision) => {
-  const multiplier = Math.pow(10, precision || 0);
-  return Math.round(value * multiplier) / multiplier;
-};
-
-/**
  * maps a metric to an object
  * @method
  * @param {Object} metric - current metric data
  * @returns {Object}
  */
 export const mapMetric = (metric) => {
-  const isWebVital =
-    ['TTFB', 'FCP', 'LCP', 'FID', 'CLS'].indexOf(metric.name) !== -1;
-
   return {
-    [metric.name]: isWebVital
-      ? round(metric.value, metric.name === 'CLS' ? 4 : 0)
-      : metric.value,
+    [metric.name]: metric,
+  };
+};
+
+/**
+ * get current device info
+ * @method
+ * @returns {Object}
+ */
+export const getDeviceInfo = () => {
+  return {
+    url: location?.href,
+    referrer: document?.referrer,
+    userAgent: navigator?.userAgent,
+    memory: navigator?.deviceMemory,
+    cpus: navigator?.hardwareConcurrency,
+    connection: navigator?.connection && {
+      effectiveType: navigator.connection?.effectiveType,
+      rtt: navigator.connection?.rtt,
+      downlink: navigator.connection?.downlink,
+    },
   };
 };

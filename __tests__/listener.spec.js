@@ -12,7 +12,7 @@ describe('listener function', () => {
   it('It should call onVisibilityChange when document visibility is hidden', () => {
     mockVisibilityState('hidden');
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.onVisibilityChange(collector);
     expect(mockFn).toHaveBeenCalled();
   });
@@ -20,60 +20,58 @@ describe('listener function', () => {
   it('It should not call onVisibilityChange when document visibility is shown', () => {
     mockVisibilityState('visible');
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.onVisibilityChange(collector);
     expect(mockFn).not.toHaveBeenCalled();
   });
 
   it('It should call report when document visibility is hidden', () => {
-    mockPerformanceObserver(['layout-shift']);
+    PerformanceObserver.supportedEntryTypes = ['layout-shift'];
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.listener(collector);
+    jest.runAllTimers();
     mockVisibilityState('hidden');
-
-    function callback() {
-      expect(mockFn).toHaveBeenCalled();
-    }
-    doAsync(callback);
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('It should not call report when document visibility is shown', () => {
-    mockPerformanceObserver(['layout-shift']);
+    PerformanceObserver.supportedEntryTypes = ['layout-shift'];
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.listener(collector);
+    jest.runAllTimers();
     mockVisibilityState('visible');
-
-    function callback() {
-      expect(mockFn).not.toHaveBeenCalled();
-    }
-    doAsync(callback);
+    expect(mockFn).not.toHaveBeenCalled();
   });
 
   it('It should not call report when document visibility is shown', () => {
-    mockPerformanceObserver([]);
+    PerformanceObserver.supportedEntryTypes = [];
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.listener(collector);
+    jest.runAllTimers();
     mockVisibilityState('visible');
-
-    function callback() {
-      expect(mockFn).not.toHaveBeenCalled();
-    }
-    doAsync(callback);
+    expect(mockFn).not.toHaveBeenCalled();
   });
 
   it('It should call report when pagehide event is fired', () => {
-    mockPerformanceObserver([]);
+    PerformanceObserver.supportedEntryTypes = [];
     const mockFn = jest.fn();
-    const collector = {reportData: mockFn};
+    const collector = { reportData: mockFn };
     Listener.listener(collector);
+    jest.runAllTimers();
     document.dispatchEvent(new Event('pagehide'));
+    expect(mockFn).toHaveBeenCalled();
+  });
 
-    function callback() {
-      expect(mockFn).toHaveBeenCalled();
-    }
-    doAsync(callback);
+  it('It should not call report when PerformanceObserver is undefined', () => {
+    delete PerformanceObserver.supportedEntryTypes;
+    const mockFn = jest.fn();
+    const collector = { reportData: mockFn };
+    Listener.listener(collector);
+    jest.runAllTimers();
+    document.dispatchEvent(new Event('pagehide'));
+    expect(mockFn).toHaveBeenCalled();
   });
 });

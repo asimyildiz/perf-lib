@@ -16,6 +16,9 @@
   "workbench.editor.labelFormat": "short",
   "workbench.editor.openPositioning": "last",
 
+  // prettier
+  "prettier.singleQuote": true,
+
   // Enable settings per-language
   "[javascript]": {
     "editor.formatOnSave": true,

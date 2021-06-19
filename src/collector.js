@@ -1,4 +1,4 @@
-import {generateUniqueId} from './utils';
+import { generateUniqueId, getDeviceInfo } from './utils';
 import CollectFactory from './collector/CollectFactory';
 
 /**
@@ -9,6 +9,6 @@ import CollectFactory from './collector/CollectFactory';
  * @returns {Collector}
  */
 export const collector = (type, reporter) => {
-  const sessionId = generateUniqueId();
-  return CollectFactory.createCollector(type, sessionId, reporter);
+  const sessionData = { id: generateUniqueId(), init: { ...getDeviceInfo() } };
+  return CollectFactory.createCollector(type, sessionData, reporter);
 };

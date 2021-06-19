@@ -40,7 +40,7 @@ You just need to build the project using the command:
 Then first you need to take the polyfill.js file from lib folder and include it into your <head> tag (which is IMPORTANT)
 > <head><script src="js/polyfill.js"></script></head>
 
-Then you just need to take the bundled main.js file from lib folder and include it to your web page before closing the </body> tag and before all your script tags:
+Then you just need to take the bundled main.js file from lib folder and include it to your web page after polyfill.js inside <head> tag and before all your script tags:
 > <script src="js/main.js"></script>
 
 GZipped version can also be created using the command (which is around 2.6KB (which has two different implementations inside that I have described above):

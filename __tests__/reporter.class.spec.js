@@ -8,10 +8,10 @@ describe('reporterd classes', () => {
   it.skip('It should not have called xmlhttprequest if there is no data passed to report on IdleReporter, idle', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     const spy = jest.spyOn(window, 'XMLHttpRequest');
-    const result = {
-      data: [],
-    };
-    idleReporter.makeRequest(result);
+    idleReporter.makeRequest(null);
+    expect(spy).not.toHaveBeenCalled();
+
+    idleReporter.makeRequest([]);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -19,11 +19,9 @@ describe('reporterd classes', () => {
   it.skip('It should have pop data after makeRequest is called on IdleReporter, idle', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     const spy = jest.spyOn(window, 'XMLHttpRequest');
-    const result = {
-      data: [{name: 'TTFB', value: 1.2}],
-    };
+    const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
     idleReporter.makeRequest(result);
-    expect(result.data.length).toBe(0);
+    expect(result.length).toBe(0);
     expect(spy).toHaveBeenCalled();
   });
 
@@ -34,9 +32,7 @@ describe('reporterd classes', () => {
 
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     const spy = jest.spyOn(idleReporter, 'makeRequest');
-    const result = {
-      data: [{name: 'TTFB', value: 1.2}],
-    };
+    const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
     idleReporter.report(result);
     expect(spy).toHaveBeenCalled();
   });
@@ -45,9 +41,7 @@ describe('reporterd classes', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     idleReporter.reportInProgress = true;
     const spy = jest.spyOn(idleReporter, 'makeRequest');
-    const result = {
-      data: [{name: 'TTFB', value: 1.2}],
-    };
+    const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
     idleReporter.report(result);
     expect(spy).not.toHaveBeenCalled();
   });
@@ -55,14 +49,12 @@ describe('reporterd classes', () => {
   it('It should have pop data after makeRequest is called on IdleReporter and call report again if data length > 0, idle', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     idleReporter.report = jest.fn();
-    const result = {
-      data: [
-        {name: 'TTFB', value: 1.2},
-        {name: 'FCP', value: 2.3},
-      ],
-    };
+    const result = [
+      { name: 'TTFB', value: 1.2, delta: 1.2 },
+      { name: 'FCP', value: 2.3, delta: 2.3 },
+    ];
     idleReporter.makeRequest(result);
-    expect(result.data.length).toBe(1);
+    expect(result.length).toBe(1);
     expect(idleReporter.report).toHaveBeenCalled();
   });
 
@@ -70,12 +62,10 @@ describe('reporterd classes', () => {
   it.skip('It should have call navigator.sendBeacon on IdleReporter after report is called, beacon', () => {
     const beaconReporter = ReportFactory.createReporter(
       'beacon',
-      'http://test',
+      'http://test'
     );
     const spy = jest.spyOn(navigator, 'sendBeacon');
-    const result = {
-      data: [{name: 'TTFB', value: 1.2}],
-    };
+    const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
     beaconReporter.report(result);
     expect(spy).toHaveBeenCalled();
   });

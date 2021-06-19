@@ -20,7 +20,7 @@ module.exports = {
   env: {
     test: {
       plugins: ['@babel/plugin-transform-modules-commonjs'],
-      presets: [['@babel/preset-env', {loose: true}]],
+      presets: [['@babel/preset-env', { loose: true }]],
     },
   },
 };

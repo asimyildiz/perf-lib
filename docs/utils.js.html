@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li><li><a href="global.html#round">round</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -95,30 +95,34 @@ export const generateUniqueId = () => {
 };
 
 /**
- * round number with precision
- * @param {Number} value - number to be rounded
- * @param {Number} precision - precision
- * @returns {Number}
- */
-export const round = (value, precision) => {
-  const multiplier = Math.pow(10, precision || 0);
-  return Math.round(value * multiplier) / multiplier;
-};
-
-/**
  * maps a metric to an object
  * @method
  * @param {Object} metric - current metric data
  * @returns {Object}
  */
 export const mapMetric = (metric) => {
-  const isWebVital =
-    ['TTFB', 'FCP', 'LCP', 'FID', 'CLS'].indexOf(metric.name) !== -1;
-
   return {
-    [metric.name]: isWebVital
-      ? round(metric.value, metric.name === 'CLS' ? 4 : 0)
-      : metric.value,
+    [metric.name]: metric,
+  };
+};
+
+/**
+ * get current device info
+ * @method
+ * @returns {Object}
+ */
+export const getDeviceInfo = () => {
+  return {
+    url: location?.href,
+    referrer: document?.referrer,
+    userAgent: navigator?.userAgent,
+    memory: navigator?.deviceMemory,
+    cpus: navigator?.hardwareConcurrency,
+    connection: navigator?.connection &amp;&amp; {
+      effectiveType: navigator.connection?.effectiveType,
+      rtt: navigator.connection?.rtt,
+      downlink: navigator.connection?.downlink,
+    },
   };
 };
 </code></pre>

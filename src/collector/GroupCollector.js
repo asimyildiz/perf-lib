@@ -1,4 +1,4 @@
-import {mapMetric} from '../utils';
+import { mapMetric } from '../utils';
 import Collector from './Collector';
 
 /**
@@ -14,8 +14,7 @@ class GroupCollector extends Collector {
    * @override
    */
   handleData(metric) {
-    this.result.data = this.result.data || {};
-    this.result.data = {...this.result.data, ...mapMetric(metric)};
+    this.result.push(mapMetric(metric));
   }
 }
 

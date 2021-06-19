@@ -8,8 +8,10 @@ global.mockVisibilityState = (visibilityState) => {
   document.dispatchEvent(new Event('visibilitychange'));
 };
 
-global.mockPerformanceObserver = (supportedEntryTypes) => {
-  global.PerformanceObserver = {
-    supportedEntryTypes,
-  };
+global.mockNavigatorPerformance = (connection) => {
+  if (!connection) {
+    delete global.navigator.connection;
+  } else {
+    global.navigator.connection = connection;
+  }
 };

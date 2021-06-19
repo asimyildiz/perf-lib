@@ -18,17 +18,17 @@ class IdleReporter extends Reporter {
    * @param {Object} result - all metric data
    */
   makeRequest(result) {
-    if (result?.data?.length > 0) {
-      console.info('idle report', result.data.pop());
+    if (result?.length > 0) {
+      console.info('idle report', result.shift());
       /**
        const client = new XMLHttpRequest();
        client.open('POST', this.url, false);
        client.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
-       client.send(JSON.stringify({id: result.id, data: [result.data.pop()]}));
+       client.send(JSON.stringify(result.shift()));
        **/
       this.reportInProgress = false;
 
-      if (result.data.length > 0) {
+      if (result.length > 0) {
         this.report(result);
       }
     }

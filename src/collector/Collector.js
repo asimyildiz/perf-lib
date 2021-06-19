@@ -1,4 +1,4 @@
-import {getTTFB, getFCP, getLCP, getFID, getCLS} from 'web-vitals/base';
+import { getTTFB, getFCP, getLCP, getFID, getCLS } from 'web-vitals/base';
 
 /**
  * Class representing a Collector
@@ -7,11 +7,11 @@ import {getTTFB, getFCP, getLCP, getFID, getCLS} from 'web-vitals/base';
 class Collector {
   /**
    * Create a Collector
-   * @param {String} sessionId - current session id
+   * @param {Object} sessionData - current session data
    * @param {Reporter} repoter - Reporter object
    */
-  constructor(sessionId, reporter) {
-    this.result = {id: sessionId, data: null};
+  constructor(sessionData, reporter) {
+    this.result = [sessionData];
     this.reporter = reporter;
   }
 
@@ -33,16 +33,36 @@ class Collector {
   }
 
   /**
-   * handleData method
-   * this method handles collecting of metrics for performance
+   * collect performance values from perf_hooks
    */
-  collect() {
+  _collectPerformance() {
+    const handler = this.handleData.bind(this);
+    const performanceObserver = new PerformanceObserver((items, observer) => {
+      items.getEntries().forEach(handler);
+    });
+
+    performanceObserver.observe({ entryTypes: ['resource'] });
+  }
+
+  /**
+   * collect timing values from web-vitals/base
+   */
+  _collectTimings() {
     const handler = this.handleData.bind(this);
     getTTFB(handler);
     getFCP(handler);
     getLCP(handler);
     getFID(handler);
     getCLS(handler);
+  }
+
+  /**
+   * handleData method
+   * this method handles collecting of metrics for performance
+   */
+  collect() {
+    this._collectTimings();
+    this._collectPerformance();
   }
 }
 

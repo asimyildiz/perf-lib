@@ -1,6 +1,6 @@
-import {collector} from './src/collector';
-import {listener} from './src/listener';
-import {reporter} from './src/reporter';
+import { collector } from './src/collector';
+import { listener } from './src/listener';
+import { reporter } from './src/reporter';
 
 // entry point for performance measurement script
 // create a reporter and then collector to collect and report data

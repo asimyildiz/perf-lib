@@ -1,4 +1,4 @@
-import {collector} from '../src/collector';
+import { collector } from '../src/collector';
 import CollectFactory from '../src/collector/CollectFactory';
 import Collector from '../src/collector/Collector';
 import GroupCollector from '../src/collector/GroupCollector';

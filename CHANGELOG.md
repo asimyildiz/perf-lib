@@ -2,19 +2,22 @@
 
 ## History
 
-### v1.0.0 (CURRENT RELEASE)
+### v1.0.1 (CURRENT RELEASE)
+
+* Add missing requirements (validate)
+* `#2` : Measure assets loading performances (img, js, css, fonts etc.)
+* `#3` : Validate measured values against other Google Tools
+* `#8` : Add session id and device info as first reported item
+* `#9` : Report whole data instead of mapped values (dashboard will decide which data to use)
+* `#10`: Update tests, cover all if-else statements
+
+### v1.0.0 (PREVIOUS RELEASE)
 
 * Initial version that has two different implementations
 * `#0` : IdleReporter with SingleCollector
 * `#1` : BeaconReporter with GroupCollector
 
 ## Feature
-
-### v1.0.1 (23.06.2021) (NEXT MINOR RELEASE)
-
-* Add missing requirements (validate)
-* `#2` : Measure assets loading performances (img, js, css, fonts etc.)
-* `#3` : Validate measured values against other Google Tools
 
 ### v1.1.0 (30.06.2021) (NEXT RELEASE)
 
