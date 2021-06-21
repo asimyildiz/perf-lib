@@ -11,11 +11,17 @@ class BeaconReporter extends Reporter {
   /**
    * report method implementation for BeaconReporter
    * this method reports the data using navigator.sendBeacon
-   * @param {Object} result - all metric data
+   * @param {Array<Object>} result - all metric data
    * @override
    */
   report(result) {
-    navigator.sendBeacon(this.url, JSON.stringify(result));
+    const isSuccessfull = navigator.sendBeacon(
+      this.url,
+      JSON.stringify(result),
+    );
+    if (isSuccessfull) {
+      result.splice(0, result.length);
+    }
   }
 }
 

@@ -23,7 +23,7 @@ class Reporter {
   /**
    * abstract report method
    * this method needs to be overriden by sub-classes
-   * @param {Object} result - all metric data
+   * @param {Array<Object>} result - all metric data
    */
   report(result) {
     throw new Error('You have to implement the method report!');

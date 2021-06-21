@@ -15,7 +15,7 @@ class IdleReporter extends Reporter {
    *  then pop the data which is sent
    *  if there are still data to be sent
    *  continue reporting
-   * @param {Object} result - all metric data
+   * @param {Array<Object>} result - all metric data
    */
   makeRequest(result) {
     if (result?.length > 0) {
@@ -34,7 +34,7 @@ class IdleReporter extends Reporter {
   /**
    * report method implementation for IdleReporter
    * this method reports the data using window.requestIdleCallback
-   * @param {Object} result - all metric data
+   * @param {Array<Object>} result - all metric data
    * @override
    */
   report(result) {

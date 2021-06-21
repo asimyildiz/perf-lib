@@ -2,7 +2,15 @@
 
 ## History
 
-### v1.0.2 (CURRENT RELEASE)
+### v1.0.3 (CURRENT RELEASE)
+
+* Update code based on failling real-life tests
+* `#15` : Fix sending data using navigator.sendBeacon as bulk
+* `#16` : Reset data array after navigator.sendBeacon call is successfull
+* `#17` : Update tests, add new tests to keep coverage 100%
+* `#18` : Update jsdocs
+
+### v1.0.2 (PREVIOUS RELEASE)
 
 * Update code based on requirements (service dependency)
 * `#11` : Map metric data as service expected

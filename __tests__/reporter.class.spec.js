@@ -65,6 +65,20 @@ describe('reporterd classes', () => {
     const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
     beaconReporter.report(result);
     expect(spy).toHaveBeenCalled();
+    expect(result.length).toBe(0);
+  });
+
+  it('It should have call navigator.sendBeacon on IdleReporter after report is called, beacon', () => {
+    const beaconReporter = ReportFactory.createReporter(
+      'beacon',
+      'http://test',
+    );
+    navigator.sendBeacon = jest.fn(() => false);
+    const spy = jest.spyOn(navigator, 'sendBeacon');
+    const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
+    beaconReporter.report(result);
+    expect(spy).toHaveBeenCalled();
+    expect(result.length).toBe(1);
   });
 
   it('It should throw an error when report is called, if Reporter class is instantiated directly', () => {
