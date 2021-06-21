@@ -13,6 +13,14 @@ class Reporter {
   }
 
   /**
+   * get current report url
+   * @returns {String}
+   */
+  getUrl() {
+    return this.url;
+  }
+
+  /**
    * abstract report method
    * this method needs to be overriden by sub-classes
    * @param {Object} result - all metric data

@@ -4,8 +4,7 @@ import BeaconReporter from '../src/reporter/BeaconReporter';
 import IdleReporter from '../src/reporter/IdleReporter';
 
 describe('reporterd classes', () => {
-  // !TODO remove it after xmlHttpRequest is start being used
-  it.skip('It should not have called xmlhttprequest if there is no data passed to report on IdleReporter, idle', () => {
+  it('It should not have called xmlhttprequest if there is no data passed to report on IdleReporter, idle', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     const spy = jest.spyOn(window, 'XMLHttpRequest');
     idleReporter.makeRequest(null);
@@ -15,8 +14,7 @@ describe('reporterd classes', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  // !TODO remove it after xmlHttpRequest is start being used
-  it.skip('It should have pop data after makeRequest is called on IdleReporter, idle', () => {
+  it('It should have pop data after makeRequest is called on IdleReporter, idle', () => {
     const idleReporter = ReportFactory.createReporter('idle', 'http://test');
     const spy = jest.spyOn(window, 'XMLHttpRequest');
     const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];
@@ -58,11 +56,10 @@ describe('reporterd classes', () => {
     expect(idleReporter.report).toHaveBeenCalled();
   });
 
-  // !TODO remove it after navigator.sendBeacon is start being used
-  it.skip('It should have call navigator.sendBeacon on IdleReporter after report is called, beacon', () => {
+  it('It should have call navigator.sendBeacon on IdleReporter after report is called, beacon', () => {
     const beaconReporter = ReportFactory.createReporter(
       'beacon',
-      'http://test'
+      'http://test',
     );
     const spy = jest.spyOn(navigator, 'sendBeacon');
     const result = [{ name: 'TTFB', value: 1.2, delta: 1.2 }];

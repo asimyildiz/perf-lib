@@ -15,8 +15,7 @@ class BeaconReporter extends Reporter {
    * @override
    */
   report(result) {
-    console.info('beacon report', result);
-    // navigator.sendBeacon(this.url, JSON.stringify(result));
+    navigator.sendBeacon(this.url, JSON.stringify(result));
   }
 }
 

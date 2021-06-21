@@ -2,7 +2,15 @@
 
 ## History
 
-### v1.0.1 (CURRENT RELEASE)
+### v1.0.2 (CURRENT RELEASE)
+
+* Update code based on requirements (service dependency)
+* `#11` : Map metric data as service expected
+* `#12` : Add session id into all metrics data
+* `#13` : Update all tests for all updated code, revert back skipped tests
+* `#14` : Connect library to service
+
+### v1.0.1 (PREVIOUS RELEASE)
 
 * Add missing requirements (validate)
 * `#2` : Measure assets loading performances (img, js, css, fonts etc.)

@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -235,7 +235,7 @@ This class will create the instance of Collector class
         
         <span class="code-name">
             
-                createCollector<span class="signature">(type, sessionData, reporter)</span><span class="type-signature"> &rarr; {<a href="Collector.html">Collector</a>}</span>
+                createCollector<span class="signature">(type, sessionId, sessionData, reporter)</span><span class="type-signature"> &rarr; {<a href="Collector.html">Collector</a>}</span>
             
         </span>
     </h4>
@@ -299,6 +299,31 @@ This class will create the instance of Collector class
   
 
   <td class="description last">'idle', 'beacon'</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sessionId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current session id</td>
 </tr>
 
 
@@ -396,7 +421,7 @@ This class will create the instance of Collector class
         <p class="tag-source">
             <a href="collector_CollectFactory.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_CollectFactory.js.html">collector/CollectFactory.js</a>, <a href="collector_CollectFactory.js.html#line18">line 18</a>
+                <a href="collector_CollectFactory.js.html">collector/CollectFactory.js</a>, <a href="collector_CollectFactory.js.html#line19">line 19</a>
             </span>
         </p>
     

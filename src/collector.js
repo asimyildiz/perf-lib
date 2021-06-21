@@ -9,6 +9,7 @@ import CollectFactory from './collector/CollectFactory';
  * @returns {Collector}
  */
 export const collector = (type, reporter) => {
-  const sessionData = { id: generateUniqueId(), init: { ...getDeviceInfo() } };
-  return CollectFactory.createCollector(type, sessionData, reporter);
+  const sessionId = generateUniqueId();
+  const sessionData = { device: { id: sessionId, ...getDeviceInfo() } };
+  return CollectFactory.createCollector(type, sessionId, sessionData, reporter);
 };

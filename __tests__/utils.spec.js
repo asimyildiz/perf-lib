@@ -7,7 +7,7 @@ describe('utils function', () => {
     jest
       .spyOn(global.Date, 'now')
       .mockImplementationOnce(() =>
-        new Date('2021-06-14T11:03:28.135Z').valueOf()
+        new Date('2021-06-14T11:03:28.135Z').valueOf(),
       );
 
     jest.spyOn(global.Math, 'random').mockImplementationOnce(() => 0.5);
@@ -27,37 +27,29 @@ describe('utils function', () => {
         value: 2.3,
         delta: 2.3,
       },
-      {
-        name: 'https://css',
-        value: 4.5,
-      },
     ];
 
     const results = [
       {
-        TTFB: {
+        vital: {
+          id: '1',
           name: 'TTFB',
           value: 1.2,
           delta: 1.2,
         },
       },
       {
-        FCP: {
+        vital: {
+          id: '1',
           name: 'FCP',
           value: 2.3,
           delta: 2.3,
         },
       },
-      {
-        'https://css': {
-          name: 'https://css',
-          value: 4.5,
-        },
-      },
     ];
 
     metrics.forEach((item, index) => {
-      expect(Util.mapMetric(item)).toStrictEqual(results[index]);
+      expect(Util.mapVitalsMetric('1', item)).toStrictEqual(results[index]);
     });
   });
 
@@ -92,5 +84,65 @@ describe('utils function', () => {
       'rtt',
       'downlink',
     ]);
+  });
+
+  it('should calculate resource metrics correctly', () => {
+    const metric = {
+      name: 'resource',
+      initiatorType: 'img',
+      decodedBodySize: 1000,
+      encodedBodySize: 1000,
+      transferSize: 1000,
+      redirectEnd: 3,
+      redirectStart: 2,
+      domainLookupEnd: 3,
+      domainLookupStart: 2,
+      connectEnd: 3,
+      connectStart: 2,
+      responseEnd: 3,
+      responseStart: 2,
+      secureConnectionStart: 2,
+      fetchStart: 2,
+      startTime: 2,
+    };
+
+    const result = {
+      resource: {
+        id: '1',
+        name: 'resource',
+        initiatorType: 'img',
+        decodedBodySize: 1000,
+        encodedBodySize: 1000,
+        transferSize: 1000,
+        redirectTime: 1,
+        dnsLookupTime: 1,
+        tcpHandshakeTime: 1,
+        responseTime: 1,
+        secureConnectionTime: 1,
+        fetchUntilResponseEndTime: 1,
+        requestStartUntilResponseEndTime: 1,
+        startUntilResponseEndTime: 1,
+      },
+    };
+
+    expect(Util.mapResourceMetric('1', metric)).toStrictEqual(result);
+
+    metric.secureConnectionStart = 0;
+    result.resource.secureConnectionTime = 0;
+    expect(Util.mapResourceMetric('1', metric)).toStrictEqual(result);
+
+    metric.secureConnectionStart = 2;
+    metric.fetchStart = 0;
+    result.resource.secureConnectionTime = 1;
+    result.resource.fetchUntilResponseEndTime = 0;
+    result.resource.requestStartUntilResponseEndTime = 0;
+    expect(Util.mapResourceMetric('1', metric)).toStrictEqual(result);
+
+    metric.fetchStart = 2;
+    metric.startTime = 0;
+    result.resource.requestStartUntilResponseEndTime = 1;
+    result.resource.fetchUntilResponseEndTime = 1;
+    result.resource.startUntilResponseEndTime = 0;
+    expect(Util.mapResourceMetric('1', metric)).toStrictEqual(result);
   });
 });

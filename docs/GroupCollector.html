@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -168,7 +168,7 @@ This class groups the data and then reports it from a single point</div>
         <p class="tag-source">
             <a href="collector_GroupCollector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_GroupCollector.js.html">collector/GroupCollector.js</a>, <a href="collector_GroupCollector.js.html#line9">line 9</a>
+                <a href="collector_GroupCollector.js.html">collector/GroupCollector.js</a>, <a href="collector_GroupCollector.js.html#line8">line 8</a>
             </span>
         </p>
     
@@ -306,7 +306,7 @@ This class groups the data and then reports it from a single point</div>
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line38">line 38</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line54">line 54</a>
             </span>
         </p>
     
@@ -408,7 +408,186 @@ This class groups the data and then reports it from a single point</div>
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line50">line 50</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line66">line 66</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="_handleData">
+        <a class="href-link" href="#_handleData">#</a>
+        
+        <span class="code-name">
+            
+                _handleData<span class="signature">(mapMetric, metric)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        handleData method implementation for GroupCollector
+this method merges all metrics into a single property
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mapMetric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">mapper function for metric</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>metric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current metric data</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Collector.html#_handleData">Collector#_handleData</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="collector_GroupCollector.js.html" class="button">View Source</a>
+            <span>
+                <a href="collector_GroupCollector.js.html">collector/GroupCollector.js</a>, <a href="collector_GroupCollector.js.html#line16">line 16</a>
             </span>
         </p>
     
@@ -511,7 +690,7 @@ this method handles collecting of metrics for performance
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line63">line 63</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line79">line 79</a>
             </span>
         </p>
     
@@ -548,7 +727,7 @@ this method handles collecting of metrics for performance
         
         <span class="code-name">
             
-                handleData<span class="signature">(metric)</span><span class="type-signature"></span>
+                handleData<span class="signature">(mapMetric, metric)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -557,8 +736,8 @@ this method handles collecting of metrics for performance
     
     
     <div class="description">
-        handleData method implementation for GroupCollector
-this method merges all metrics into a single property
+        abstract handleData method
+this method needs to be overriden by sub-classes
     </div>
     
 
@@ -591,6 +770,31 @@ this method merges all metrics into a single property
         </thead>
 
         <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mapMetric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">mapper function for metric</td>
+</tr>
+
+
         
 
             
@@ -632,12 +836,12 @@ this method merges all metrics into a single property
     
 
     
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
         <a href="Collector.html#handleData">Collector#handleData</a>
     </li></ul></dd>
+    
+
     
 
     
@@ -663,9 +867,9 @@ this method merges all metrics into a single property
 
     
         <p class="tag-source">
-            <a href="collector_GroupCollector.js.html" class="button">View Source</a>
+            <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_GroupCollector.js.html">collector/GroupCollector.js</a>, <a href="collector_GroupCollector.js.html#line16">line 16</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line27">line 27</a>
             </span>
         </p>
     
@@ -768,7 +972,7 @@ this method reports current metrics
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line31">line 31</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line47">line 47</a>
             </span>
         </p>
     

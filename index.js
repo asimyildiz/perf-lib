@@ -6,7 +6,7 @@ import { reporter } from './src/reporter';
 // create a reporter and then collector to collect and report data
 
 // const [type, url] = ['beacon', 'https://test'];
-const [type, url] = ['idle', 'https://test'];
+const [type, url] = ['idle', 'http://localhost:8080/report/'];
 const currentReporter = reporter(type, url);
 const currentCollector = collector(type, currentReporter);
 

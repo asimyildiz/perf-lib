@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,8 +85,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { mapMetric } from '../utils';
-import Collector from './Collector';
+            <pre class="prettyprint source linenums"><code>import Collector from './Collector';
 
 /**
  * Class representing a SingleCollector
@@ -100,11 +99,12 @@ class SingleCollector extends Collector {
    *  then it will call reportdata immediateliy to start reporting
    *  the reporting depends on the browser's idle state
    * these metrics will be popped out later after reported
+   * @param {Function} mapMetric - mapper function for metric
    * @param {Object} metric - current metric data
    * @override
    */
-  handleData(metric) {
-    this.result.push(mapMetric(metric));
+  _handleData(mapMetric, metric) {
+    this.result.push(mapMetric(this.sessionId, metric));
     this.reportData();
   }
 }

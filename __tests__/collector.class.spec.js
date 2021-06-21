@@ -1,54 +1,74 @@
+import * as Util from '../src/utils';
 import CollectFactory from '../src/collector/CollectFactory';
+import Reporter from '../src/reporter/Reporter';
 import Collector from '../src/collector/Collector';
 import GroupCollector from '../src/collector/GroupCollector';
 import SingleCollector from '../src/collector/SingleCollector';
 
 describe('collector classes', () => {
   it('It should have call reportData immediately on SingleCollector, idle', () => {
-    const reportCollector = { report: jest.fn() };
-    const singleCollector = CollectFactory.createCollector(
-      'idle',
-      { id: 1, init: { url: 'https://www' } },
-      reportCollector
-    );
-    expect(singleCollector).toBeInstanceOf(SingleCollector);
+    const idleReporter = new Reporter('http://url');
+    idleReporter.report = jest.fn();
+
+    const singleCollector = new SingleCollector('1', {}, idleReporter);
     const spy = jest.spyOn(singleCollector, 'reportData');
-    singleCollector.handleData({
+    singleCollector.handleData(Util.mapVitalsMetric, {
       name: 'TTFB',
       value: 1.2,
       delta: 1.2,
     });
     expect(spy).toHaveBeenCalled();
-    expect(reportCollector.report).toHaveBeenCalled();
+    expect(idleReporter.report).toHaveBeenCalled();
+  });
+
+  it('It should not have call reportData immediately on SingleCollector when url is the same, idle', () => {
+    const idleReporter = new Reporter('http://url');
+    idleReporter.report = jest.fn();
+
+    const singleCollector = new SingleCollector('1', {}, idleReporter);
+    const spy = jest.spyOn(singleCollector, '_handleData');
+    singleCollector.handleData(Util.mapVitalsMetric, {
+      name: 'http://url',
+      value: 1.2,
+      delta: 1.2,
+    });
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it('It should group metrics together on GroupCollector, beacon', () => {
-    const groupCollector = CollectFactory.createCollector('beacon', {
-      id: 1,
-      init: { url: 'https://www' },
-    });
+    const beaconReporter = new Reporter('http://url');
+    beaconReporter.report = jest.fn();
+
+    const groupCollector = CollectFactory.createCollector(
+      'beacon',
+      '1',
+      { device: { id: '1', url: 'http://test' } },
+      beaconReporter,
+    );
     expect(groupCollector).toBeInstanceOf(GroupCollector);
-    groupCollector.handleData({
+    groupCollector.handleData(Util.mapVitalsMetric, {
       name: 'TTFB',
       value: 1.2,
       delta: 1.2,
     });
-    groupCollector.handleData({
+    groupCollector.handleData(Util.mapVitalsMetric, {
       name: 'FCP',
       value: 2.3,
       delta: 2.3,
     });
     expect(groupCollector.result).toStrictEqual([
-      { id: 1, init: { url: 'https://www' } },
+      { device: { id: '1', url: 'http://test' } },
       {
-        TTFB: {
+        vital: {
+          id: '1',
           name: 'TTFB',
           value: 1.2,
           delta: 1.2,
         },
       },
       {
-        FCP: {
+        vital: {
+          id: '1',
           name: 'FCP',
           value: 2.3,
           delta: 2.3,
@@ -57,22 +77,22 @@ describe('collector classes', () => {
     ]);
   });
 
-  it('It should throw an error when handleData is called, if Collector class is instantiated directly', () => {
-    const collector = new Collector();
-    try {
-      collector.handleData();
-      // Fail test if above expression doesn't throw anything.
-      expect(true).toBe(false);
-    } catch (e) {
-      expect(e.message).toBe('You have to implement the method handleData!');
-    }
-  });
-
   it('It should start listening for web-vitals methods when collect method is called on a Collector object', () => {
     const collector = new Collector();
     collector.handleData = jest.fn();
     collector.collect();
 
     expect(collector.handleData).toHaveBeenCalledTimes(8);
+  });
+
+  it('It should throw an error when _handleData is called, if Collector class is instantiated directly', () => {
+    const collector = new Collector();
+    try {
+      collector._handleData();
+      // Fail test if above expression doesn't throw anything.
+      expect(true).toBe(false);
+    } catch (e) {
+      expect(e.message).toBe('You have to implement the method _handleData!');
+    }
   });
 });

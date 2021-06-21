@@ -1,4 +1,3 @@
-import { mapMetric } from '../utils';
 import Collector from './Collector';
 
 /**
@@ -13,11 +12,12 @@ class SingleCollector extends Collector {
    *  then it will call reportdata immediateliy to start reporting
    *  the reporting depends on the browser's idle state
    * these metrics will be popped out later after reported
+   * @param {Function} mapMetric - mapper function for metric
    * @param {Object} metric - current metric data
    * @override
    */
-  handleData(metric) {
-    this.result.push(mapMetric(metric));
+  _handleData(mapMetric, metric) {
+    this.result.push(mapMetric(this.sessionId, metric));
     this.reportData();
   }
 }

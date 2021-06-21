@@ -1,4 +1,5 @@
 import { getTTFB, getFCP, getLCP, getFID, getCLS } from 'web-vitals/base';
+import { mapVitalsMetric, mapResourceMetric } from '../utils';
 
 /**
  * Class representing a Collector
@@ -7,10 +8,12 @@ import { getTTFB, getFCP, getLCP, getFID, getCLS } from 'web-vitals/base';
 class Collector {
   /**
    * Create a Collector
+   * @param {String} sessionId - current session id
    * @param {Object} sessionData - current session data
    * @param {Reporter} repoter - Reporter object
    */
-  constructor(sessionData, reporter) {
+  constructor(sessionId, sessionData, reporter) {
+    this.sessionId = sessionId;
     this.result = [sessionData];
     this.reporter = reporter;
   }
@@ -18,10 +21,23 @@ class Collector {
   /**
    * abstract handleData method
    * this method needs to be overriden by sub-classes
+   * @param {Function} mapMetric - mapper function for metric
    * @param {Object} metric - current metric data
    */
-  handleData(metric) {
-    throw new Error('You have to implement the method handleData!');
+  handleData(mapMetric, metric) {
+    if (metric.name !== this.reporter.getUrl()) {
+      this._handleData(mapMetric, metric);
+    }
+  }
+
+  /**
+   * abstract _handleData method
+   * this method needs to be overriden by sub-classes
+   * @param {Function} mapMetric - mapper function for metric
+   * @param {Object} metric - current metric data
+   */
+  _handleData(mapMetric, metric) {
+    throw new Error('You have to implement the method _handleData!');
   }
 
   /**
@@ -36,7 +52,7 @@ class Collector {
    * collect performance values from perf_hooks
    */
   _collectPerformance() {
-    const handler = this.handleData.bind(this);
+    const handler = this.handleData.bind(this, mapResourceMetric);
     const performanceObserver = new PerformanceObserver((items, observer) => {
       items.getEntries().forEach(handler);
     });
@@ -48,7 +64,7 @@ class Collector {
    * collect timing values from web-vitals/base
    */
   _collectTimings() {
-    const handler = this.handleData.bind(this);
+    const handler = this.handleData.bind(this, mapVitalsMetric);
     getTTFB(handler);
     getFCP(handler);
     getLCP(handler);

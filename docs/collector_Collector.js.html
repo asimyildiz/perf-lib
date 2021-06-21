@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -86,6 +86,7 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import { getTTFB, getFCP, getLCP, getFID, getCLS } from 'web-vitals/base';
+import { mapVitalsMetric, mapResourceMetric } from '../utils';
 
 /**
  * Class representing a Collector
@@ -94,10 +95,12 @@
 class Collector {
   /**
    * Create a Collector
+   * @param {String} sessionId - current session id
    * @param {Object} sessionData - current session data
    * @param {Reporter} repoter - Reporter object
    */
-  constructor(sessionData, reporter) {
+  constructor(sessionId, sessionData, reporter) {
+    this.sessionId = sessionId;
     this.result = [sessionData];
     this.reporter = reporter;
   }
@@ -105,10 +108,23 @@ class Collector {
   /**
    * abstract handleData method
    * this method needs to be overriden by sub-classes
+   * @param {Function} mapMetric - mapper function for metric
    * @param {Object} metric - current metric data
    */
-  handleData(metric) {
-    throw new Error('You have to implement the method handleData!');
+  handleData(mapMetric, metric) {
+    if (metric.name !== this.reporter.getUrl()) {
+      this._handleData(mapMetric, metric);
+    }
+  }
+
+  /**
+   * abstract _handleData method
+   * this method needs to be overriden by sub-classes
+   * @param {Function} mapMetric - mapper function for metric
+   * @param {Object} metric - current metric data
+   */
+  _handleData(mapMetric, metric) {
+    throw new Error('You have to implement the method _handleData!');
   }
 
   /**
@@ -123,7 +139,7 @@ class Collector {
    * collect performance values from perf_hooks
    */
   _collectPerformance() {
-    const handler = this.handleData.bind(this);
+    const handler = this.handleData.bind(this, mapResourceMetric);
     const performanceObserver = new PerformanceObserver((items, observer) => {
       items.getEntries().forEach(handler);
     });
@@ -135,7 +151,7 @@ class Collector {
    * collect timing values from web-vitals/base
    */
   _collectTimings() {
-    const handler = this.handleData.bind(this);
+    const handler = this.handleData.bind(this, mapVitalsMetric);
     getTTFB(handler);
     getFCP(handler);
     getLCP(handler);

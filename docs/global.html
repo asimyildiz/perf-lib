@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -541,7 +541,7 @@
         <p class="tag-source">
             <a href="utils.js.html" class="button">View Source</a>
             <span>
-                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line27">line 27</a>
+                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line68">line 68</a>
             </span>
         </p>
     
@@ -745,12 +745,12 @@ after page visibility state changed to hidden, reports data
 
 
     
-    <h4 class="name" id="mapMetric">
-        <a class="href-link" href="#mapMetric">#</a>
+    <h4 class="name" id="mapResourceMetric">
+        <a class="href-link" href="#mapResourceMetric">#</a>
         
         <span class="code-name">
             
-                mapMetric<span class="signature">(metric)</span><span class="type-signature"> &rarr; {Object}</span>
+                mapResourceMetric<span class="signature">(sessionId, metric)</span><span class="type-signature"> &rarr; {Object}</span>
             
         </span>
     </h4>
@@ -759,7 +759,8 @@ after page visibility state changed to hidden, reports data
     
     
     <div class="description">
-        maps a metric to an object
+        maps a response timing object (resource)
+https://developer.mozilla.org/en-US/docs/Web/API/Resource_Timing_API/Using_the_Resource_Timing_API#Timing_resource_loading_phases
     </div>
     
 
@@ -792,6 +793,31 @@ after page visibility state changed to hidden, reports data
         </thead>
 
         <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sessionId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current session id</td>
+</tr>
+
+
         
 
             
@@ -861,7 +887,203 @@ after page visibility state changed to hidden, reports data
         <p class="tag-source">
             <a href="utils.js.html" class="button">View Source</a>
             <span>
-                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line16">line 16</a>
+                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line36">line 36</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="mapVitalsMetric">
+        <a class="href-link" href="#mapVitalsMetric">#</a>
+        
+        <span class="code-name">
+            
+                mapVitalsMetric<span class="signature">(sessionId, metric)</span><span class="type-signature"> &rarr; {Object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        maps a generic metric to an object
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sessionId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current session id</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>metric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current metric data</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="utils.js.html" class="button">View Source</a>
+            <span>
+                <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line17">line 17</a>
             </span>
         </p>
     

@@ -1,4 +1,3 @@
-import { mapMetric } from '../utils';
 import Collector from './Collector';
 
 /**
@@ -10,11 +9,12 @@ class GroupCollector extends Collector {
   /**
    * handleData method implementation for GroupCollector
    * this method merges all metrics into a single property
+   * @param {Function} mapMetric - mapper function for metric
    * @param {Object} metric - current metric data
    * @override
    */
-  handleData(metric) {
-    this.result.push(mapMetric(metric));
+  _handleData(mapMetric, metric) {
+    this.result.push(mapMetric(this.sessionId, metric));
   }
 }
 

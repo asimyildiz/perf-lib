@@ -19,13 +19,10 @@ class IdleReporter extends Reporter {
    */
   makeRequest(result) {
     if (result?.length > 0) {
-      console.info('idle report', result.shift());
-      /**
-       const client = new XMLHttpRequest();
-       client.open('POST', this.url, false);
-       client.setRequestHeader('Content-Type', 'text/plain; charset=UTF-8');
-       client.send(JSON.stringify(result.shift()));
-       **/
+      const client = new XMLHttpRequest();
+      client.open('POST', this.url, false);
+      client.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      client.send(JSON.stringify(result.shift()));
       this.reportInProgress = false;
 
       if (result.length > 0) {

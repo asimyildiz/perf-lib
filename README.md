@@ -18,6 +18,7 @@ The 2 packages that I like :
 Because Google is the current authority for SEO, I believe we do not need to re-invent the wheels, because for performance measurement;
 We are using the tools such as Page Speed Insights, Chrome User Experience Reports, Search Console's Speed Report so this script should also give report similar to these tools.
 So in this project, I have used web-vitals npm package as the core performance measurement tool with some extra code that I have got from perfume.js.
+PerformanceObserver is used to collect all metrics for all resources.
 
 # logging-reporting
 Because I am using "Google Chrome / web-vitals" npm package and not implemented a new package using Performance MDN interface with Web Workers from scratch;
@@ -78,12 +79,8 @@ You can run the tests by running the command:
 > npm run test
 
 Jest is being used for testing the whole library.
-There are 3 skipped tests right now which are skipped because the API gateway is not ready (xmlhttprequest and navigator.sendBeacon method calls are commented out).
-When these methods are being activated, the code coverage will be (which is already tested):
 ![Code Coverage](./assets/test-coverage.png)
 
 # todo
-measured values will be validated against other Google Tools which uses web-vitals, fine adjustments may be needed
-missing requirements to be added (assets loading performance by using, performance.getEntriesByType)
-api calls will be enabled after API gateway is ready (maybe an AnalyticsReporter class will be added)
 two different npm packages can be created from this package later on
+refactor tests

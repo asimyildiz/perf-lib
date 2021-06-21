@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapMetric">mapMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BeaconReporter.html">BeaconReporter</a></li><li><a href="CollectFactory.html">CollectFactory</a></li><li><a href="Collector.html">Collector</a></li><li><a href="GroupCollector.html">GroupCollector</a></li><li><a href="IdleReporter.html">IdleReporter</a></li><li><a href="Reporter.html">Reporter</a></li><li><a href="ReportFactory.html">ReportFactory</a></li><li><a href="SingleCollector.html">SingleCollector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#collector">collector</a></li><li><a href="global.html#generateUniqueId">generateUniqueId</a></li><li><a href="global.html#getDeviceInfo">getDeviceInfo</a></li><li><a href="global.html#listener">listener</a></li><li><a href="global.html#mapResourceMetric">mapResourceMetric</a></li><li><a href="global.html#mapVitalsMetric">mapVitalsMetric</a></li><li><a href="global.html#onVisibilityChange">onVisibilityChange</a></li><li><a href="global.html#reporter">reporter</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,7 +85,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Collector<span class="signature">(sessionData, repoter)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Collector<span class="signature">(sessionId, sessionData, repoter)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Class representing a Collector
 This is an abstract class</div>
@@ -112,7 +112,7 @@ This is an abstract class</div>
         
         <span class="code-name">
             
-                new Collector<span class="signature">(sessionData, repoter)</span><span class="type-signature"></span>
+                new Collector<span class="signature">(sessionId, sessionData, repoter)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -154,6 +154,31 @@ This is an abstract class</div>
         </thead>
 
         <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sessionId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current session id</td>
+</tr>
+
+
         
 
             
@@ -248,7 +273,7 @@ This is an abstract class</div>
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line7">line 7</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line8">line 8</a>
             </span>
         </p>
     
@@ -370,7 +395,7 @@ This is an abstract class</div>
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line38">line 38</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line54">line 54</a>
             </span>
         </p>
     
@@ -467,7 +492,181 @@ This is an abstract class</div>
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line50">line 50</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line66">line 66</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="_handleData">
+        <a class="href-link" href="#_handleData">#</a>
+        
+        <span class="code-name">
+            
+                _handleData<span class="signature">(mapMetric, metric)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        abstract _handleData method
+this method needs to be overriden by sub-classes
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mapMetric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">mapper function for metric</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>metric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">current metric data</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="collector_Collector.js.html" class="button">View Source</a>
+            <span>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line39">line 39</a>
             </span>
         </p>
     
@@ -565,7 +764,7 @@ this method handles collecting of metrics for performance
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line63">line 63</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line79">line 79</a>
             </span>
         </p>
     
@@ -602,7 +801,7 @@ this method handles collecting of metrics for performance
         
         <span class="code-name">
             
-                handleData<span class="signature">(metric)</span><span class="type-signature"></span>
+                handleData<span class="signature">(mapMetric, metric)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -645,6 +844,31 @@ this method needs to be overriden by sub-classes
         </thead>
 
         <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mapMetric</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">mapper function for metric</td>
+</tr>
+
+
         
 
             
@@ -714,7 +938,7 @@ this method needs to be overriden by sub-classes
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line23">line 23</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line27">line 27</a>
             </span>
         </p>
     
@@ -812,7 +1036,7 @@ this method reports current metrics
         <p class="tag-source">
             <a href="collector_Collector.js.html" class="button">View Source</a>
             <span>
-                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line31">line 31</a>
+                <a href="collector_Collector.js.html">collector/Collector.js</a>, <a href="collector_Collector.js.html#line47">line 47</a>
             </span>
         </p>
     
