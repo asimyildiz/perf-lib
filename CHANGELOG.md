@@ -2,7 +2,12 @@
 
 ## History
 
-### v1.0.3 (CURRENT RELEASE)
+### v1.0.4 (CURRENT RELEASE)
+
+* Update live url of the service
+* `#19` : Update live url of the service
+
+### v1.0.3 (PREVIOUS RELEASE)
 
 * Update code based on failling real-life tests
 * `#15` : Fix sending data using navigator.sendBeacon as bulk

@@ -1,6 +1,6 @@
 {
   "name": "perf-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "performance library to measure ttfb, fcp, dom load and window load events as well as network timings for document, image, font, js and css",
   "main": "index.js",
   "scripts": {
